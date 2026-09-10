@@ -29,13 +29,8 @@ The application allows users to add, view, search, update, delete, and display s
 Day 6/
 │
 ├── student_app.py
-│   └── Main Python source code for the Student Management CLI Application
-│
 ├── README.md
-│   └── Project documentation, features, setup, and usage instructions
-│
-├── day6.pdf
-│   └── Day 6 task/documentation
+├── day6.pdf(docs)
 │
 └── screenshots/
     └── Application screenshots and terminal outputs
