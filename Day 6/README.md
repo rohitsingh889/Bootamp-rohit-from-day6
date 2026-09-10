@@ -29,18 +29,18 @@ The application allows users to add, view, search, update, delete, and display s
 
 ![Student Management CLI Application](https://github.com/rohitsingh889/fast_api_rohit/blob/main/Day%206/screenshots/image.png)
 
-## How to Run
+# How to Run
 
-# 1. Clone the repository
+## 1. Clone the repository
 git clone <repository-url>
 
-# 2. Navigate to the project folder
+## 2. Navigate to the project folder
 cd "Day 6"
 
-# 3. Check Python version
+## 3. Check Python version
 python --version
 
-# 4. Run the application
+## 4. Run the application
 python student_app.py
 
 ## Data Structure
