@@ -26,14 +26,8 @@ The application allows users to add, view, search, update, delete, and display s
 - Exception Handling
 
 ## Project Structure
-Day 6/
-│
-├── student_app.py
-├── README.md
-├── day6.pdf(docs)
-│
-└── screenshots/
-    └── Application screenshots and terminal outputs
+
+![Student Management CLI Application](https://github.com/rohitsingh889/fast_api_rohit/blob/main/Day%206/screenshots/image.png)
 
 ## How to Run
 
