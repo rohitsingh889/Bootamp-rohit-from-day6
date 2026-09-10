@@ -26,18 +26,33 @@ The application allows users to add, view, search, update, delete, and display s
 - Exception Handling
 
 ## Project Structure
-
-student-management-cli/
+Day 6/
 │
-├── student_management.py
+├── student_app.py
+│   └── Main Python source code for the Student Management CLI Application
+│
 ├── README.md
+│   └── Project documentation, features, setup, and usage instructions
+│
+├── day6.pdf
+│   └── Day 6 task/documentation
+│
 └── screenshots/
+    └── Application screenshots and terminal outputs
 
 ## How to Run
 
-Run the following command:
+# 1. Clone the repository
+git clone <repository-url>
 
-python student_management.py
+# 2. Navigate to the project folder
+cd "Day 6"
+
+# 3. Check Python version
+python --version
+
+# 4. Run the application
+python student_app.py
 
 ## Data Structure
 
