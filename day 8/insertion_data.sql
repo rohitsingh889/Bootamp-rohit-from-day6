@@ -67,3 +67,22 @@ SELECT * FROM designation;
 SELECT * FROM manager;
 
 SELECT * FROM employee;
+
+
+SELECT
+    e.employee_id,
+    e.employee_name,
+    e.email,
+    e.age,
+    e.salary,
+    d.department_name,
+    ds.designation_name,
+    m.manager_name,
+    m.email AS manager_email
+FROM employee e
+JOIN department d
+    ON e.department_id = d.department_id
+JOIN designation ds
+    ON e.designation_id = ds.designation_id
+JOIN manager m
+    ON e.manager_id = m.manager_id;
