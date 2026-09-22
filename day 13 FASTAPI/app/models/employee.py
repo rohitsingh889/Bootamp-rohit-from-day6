@@ -44,3 +44,4 @@ class Employee(Base):
         default=True,
         nullable=False
     )
+
