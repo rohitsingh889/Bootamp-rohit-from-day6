@@ -30,6 +30,6 @@ def test_raw_sql():
     finally:
         db.close()
 
+test_raw_sql()
 
-if __name__ == "__main__":
-    test_raw_sql()
+#python -m tests.test_raw_sql
