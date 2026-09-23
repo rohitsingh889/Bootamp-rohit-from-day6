@@ -1,4 +1,5 @@
 # Day 13 – FastAPI + PostgreSQL Employee Management API
+[![Agentic Chatbot with FastAPI and PostgreSQL](https://www.orfium.com/owp-content/uploads/2025/04/Screenshot-2025-04-08-at-2.47.23%E2%80%AFPM.png)](https://www.orfium.com/engineering/how-to-build-an-agentic-chatbot-with-fastapi-and-postgresql/)
 
 A backend Employee Management API built using **FastAPI, PostgreSQL, SQLAlchemy, and Pydantic**.
 
