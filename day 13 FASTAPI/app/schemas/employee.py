@@ -27,3 +27,20 @@ class EmployeeUpdate(BaseModel):
     designation: str = Field(min_length=2, max_length=50)
     salary: float = Field(gt=0)
     is_active: bool = True
+
+
+
+
+class EmployeeListResponse(BaseModel):
+    msg: str
+    data: list[EmployeeResponse]
+
+
+class EmployeeSingleResponse(BaseModel):
+    msg: str
+    data: EmployeeResponse
+
+
+class EmployeeDeleteResponse(BaseModel):
+    msg: str
+    data: EmployeeResponse
