@@ -1,4 +1,5 @@
 # Day 13 – FastAPI + PostgreSQL Employee Management API
+
 [![Agentic Chatbot with FastAPI and PostgreSQL](https://www.orfium.com/owp-content/uploads/2025/04/Screenshot-2025-04-08-at-2.47.23%E2%80%AFPM.png)](https://www.orfium.com/engineering/how-to-build-an-agentic-chatbot-with-fastapi-and-postgresql/)
 
 A backend Employee Management API built using **FastAPI, PostgreSQL, SQLAlchemy, and Pydantic**.
@@ -51,35 +52,58 @@ PostgreSQL
 
 ```text
 day 13 FASTAPI/
+
 ├── app/
 │   ├── api/
+│   │   ├── __init__.py
 │   │   └── v1/
 │   │       ├── endpoints/
-│   │       │   └── employees.py
+│   │       │   ├── employees.py
+│   │       │   └── __init__.py
+│   │       ├── __init__.py
 │   │       └── router.py
+│   │
 │   ├── core/
 │   │   ├── config.py
-│   │   └── dependencies.py
+│   │   ├── dependencies.py
+│   │   └── __init__.py
+│   │
 │   ├── db/
 │   │   ├── base.py
-│   │   └── session.py
+│   │   ├── session.py
+│   │   └── __init__.py
+│   │
 │   ├── models/
-│   │   └── employee.py
+│   │   ├── employee.py
+│   │   └── __init__.py
+│   │
 │   ├── repositories/
-│   │   └── employee_repository.py
+│   │   ├── employee_repository.py
+│   │   └── __init__.py
+│   │
 │   ├── schemas/
-│   │   └── employee.py
+│   │   ├── employee.py
+│   │   └── __init__.py
+│   │
 │   ├── services/
-│   │   └── employee_service.py
-│   └── main.py
+│   │   ├── employee_service.py
+│   │   └── __init__.py
+│   │
+│   ├── main.py
+│   └── __init__.py
+│
 ├── tests/
+│   ├── __init__.py
 │   ├── test_db.py
 │   ├── test_employees.py
 │   └── test_raw_sql.py
-├── .env
+│
+├── README.md
 ├── requirements.txt
-└── README.md
+└── table_posstgres.sql
 ```
+
+> `.venv/` and Python `__pycache__/` directories are local/generated files and should not be committed to the repository.
 
 ## 🗄️ PostgreSQL Database
 
@@ -99,7 +123,55 @@ Recommended `.gitignore` entries:
 .env
 .venv/
 __pycache__/
+*.pyc
 ```
+
+## 🏗️ SQLAlchemy Database Base
+
+The project uses SQLAlchemy's `DeclarativeBase` as the common base class for ORM models.
+
+`app/db/base.py`:
+
+```python
+from sqlalchemy.orm import DeclarativeBase
+
+
+class Base(DeclarativeBase):
+    pass
+```
+
+The SQLAlchemy models inherit from `Base`.
+
+Example:
+
+```python
+class Employee(Base):
+    __tablename__ = "employees"
+```
+
+This allows SQLAlchemy to register the model and its table metadata.
+
+### Table Creation Using SQLAlchemy
+
+If the PostgreSQL table does not already exist, SQLAlchemy can create it from the registered models:
+
+```python
+from app.db.base import Base
+from app.db.session import engine
+from app.models.employee import Employee
+
+Base.metadata.create_all(bind=engine)
+```
+
+### Important Notes
+
+`Base.metadata.create_all()`:
+
+- Creates missing tables.
+- Does not modify or alter an existing table structure.
+- Uses the metadata registered through SQLAlchemy models.
+
+For production schema changes, use **Alembic migrations** instead of relying on `create_all()` to alter existing tables.
 
 ## 👨‍💼 Employee Model
 
@@ -121,6 +193,16 @@ Database constraints include:
 - Unique email
 - NOT NULL constraints
 - Salary CHECK constraint
+
+## 📄 PostgreSQL SQL Script
+
+The project also contains:
+
+```text
+table_posstgres.sql
+```
+
+This file contains the PostgreSQL table creation SQL used for the project.
 
 ## 🔌 API Endpoints
 
@@ -197,7 +279,9 @@ Examples:
 
 ```python
 name: str = Field(min_length=2, max_length=50)
+
 email: EmailStr
+
 salary: float = Field(gt=0)
 ```
 
@@ -220,8 +304,11 @@ Examples:
 
 ```text
 404 Not Found
+
 409 Conflict
+
 400 Bad Request
+
 422 Unprocessable Entity
 ```
 
@@ -241,7 +328,9 @@ Example:
 
 ```python
 db.add(employee)
+
 db.commit()
+
 db.refresh(employee)
 ```
 
@@ -259,7 +348,7 @@ This keeps the database session in a valid state after a failed write.
 
 The project uses SQLAlchemy ORM for database operations.
 
-Get all employees:
+### Get All Employees
 
 ```python
 stmt = select(Employee)
@@ -269,7 +358,7 @@ result = db.execute(stmt)
 employees = result.scalars().all()
 ```
 
-Get one employee:
+### Get One Employee
 
 ```python
 stmt = select(Employee).where(Employee.id == emp_id)
@@ -285,6 +374,7 @@ Clone the repository:
 
 ```bash
 git clone <your-repository-url>
+
 cd "day 13 FASTAPI"
 ```
 
@@ -344,6 +434,23 @@ ReDoc:
 http://127.0.0.1:8000/redoc
 ```
 
+Swagger can be used to test:
+
+```text
+POST    /employees
+GET     /employees
+GET     /employees/{emp_id}
+PUT     /employees/{emp_id}
+DELETE  /employees/{emp_id}
+```
+
+Along with:
+
+```text
+GET /employees?search=rahul
+GET /employees?department=IT
+```
+
 ## 🧪 Testing
 
 Test the database connection:
@@ -356,13 +463,11 @@ Available tests:
 
 ```text
 tests/
+
 ├── test_db.py
 ├── test_employees.py
 └── test_raw_sql.py
 ```
-
-
-
 
 ## 👨‍💻 Author
 
@@ -370,4 +475,3 @@ tests/
 
 B.Tech CSE  
 ITS Engineering College, Greater Noida
-
