@@ -104,7 +104,32 @@ def get_by_department(department: str, db: Session):
 
 
 
+def patch_employee(
+    emp_id: int,
+    employee_data: dict,
+    db: Session
+):
+    stmt = select(Employee).where(Employee.id == emp_id)
 
+    result = db.execute(stmt)
+
+    employee = result.scalar_one_or_none()
+
+    if employee is None:
+        return None
+
+    try:
+        for key, value in employee_data.items():
+            setattr(employee, key, value)
+
+        db.commit()
+        db.refresh(employee)
+
+        return employee
+
+    except IntegrityError:
+        db.rollback()
+        raise
 
 
 

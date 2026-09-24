@@ -5,7 +5,8 @@ from app.repositories import employee_repository
 from app.schemas.employee import (
     EmployeeCreate,
     EmployeeResponse,
-    EmployeeUpdate
+    EmployeeUpdate,
+    EmployeePatch
 )
 
 def create_employee(db: Session, employee_data: dict):
@@ -135,4 +136,49 @@ def get_by_department(department: str, db: Session):
     return {
         "msg": "employees found",
         "data": employees
+    }
+
+
+
+def patch_employee(
+    emp_id: int,
+    employee_data: EmployeePatch,
+    db: Session
+):
+    data = employee_data.model_dump(exclude_unset=True)
+
+    if not data:
+        raise HTTPException(
+            status_code=400,
+            detail="At least one field is required"
+        )
+
+    try:
+        employee = employee_repository.patch_employee(
+            emp_id,
+            data,
+            db
+        )
+
+    except IntegrityError as e:
+        if "employees_email_key" in str(e.orig):
+            raise HTTPException(
+                status_code=409,
+                detail="Email already exists"
+            )
+
+        raise HTTPException(
+            status_code=400,
+            detail="Database constraint violated"
+        )
+
+    if employee is None:
+        raise HTTPException(
+            status_code=404,
+            detail={"msg": "Employee not found"}
+        )
+
+    return {
+        "msg": "Employee partially updated",
+        "data": employee
     }

@@ -6,7 +6,8 @@ from app.schemas.employee import (
     EmployeeUpdate,
     EmployeeListResponse,
     EmployeeSingleResponse,
-    EmployeeDeleteResponse
+    EmployeeDeleteResponse,
+    EmployeePatch
 )
 from app.core.dependencies import get_db
 from app.services import employee_service
@@ -53,7 +54,17 @@ def delete_employee(emp_id:int, db:Session=Depends(get_db)):
     return employee_service.delete_employee(emp_id,db)
 
 
-
+@router.patch("/employees/{emp_id}", response_model=EmployeeSingleResponse)
+def patch_employee(
+    emp_id: int,
+    employee_data: EmployeePatch,
+    db: Session = Depends(get_db)
+):
+    return employee_service.patch_employee(
+        emp_id,
+        employee_data,
+        db
+    )
 
 
 

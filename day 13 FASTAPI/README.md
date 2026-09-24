@@ -248,7 +248,11 @@ GET /employees/1
 ```http
 PUT /employees/{emp_id}
 ```
+### Partial Update Employee
 
+```http
+PATCH /employees/{emp_id}
+```
 ### Delete Employee
 
 ```http
