@@ -22,11 +22,28 @@ def create_employee(db: Session, employee_data: dict):
 
     
 
-def get_employees(db: Session):
+def get_employees(
+    page: int,
+    limit: int,
+    sort: str | None,
+    order: str,
+    db: Session
+):
+    offset = (page - 1) * limit
 
-    emp = select(Employee)
-    result = db.execute(emp)
+    stmt = select(Employee)
+
+    if sort == "name":
+        if order == "desc":
+            stmt = stmt.order_by(Employee.name.desc())
+        else:
+            stmt = stmt.order_by(Employee.name.asc())
+
+    stmt = stmt.offset(offset).limit(limit)
+
+    result = db.execute(stmt)
     employees = result.scalars().all()
+
     return employees
 
 def getone_employee(emp_id:int,db:Session):
@@ -76,18 +93,28 @@ def delete_emp(emp_id: int, db: Session):
 
 
 
-def search_employee(search: str, db: Session):
+def search_employee(
+    search: str,
+    page: int,
+    limit: int,
+    db: Session
+):
+    offset = (page - 1) * limit
 
-    emp = select(Employee).where(
-        Employee.name.ilike(f"%{search}%")
+    stmt = (
+        select(Employee)
+        .where(
+            Employee.name.ilike(f"%{search}%")
+        )
+        .offset(offset)
+        .limit(limit)
     )
 
-    result = db.execute(emp)
+    result = db.execute(stmt)
 
     employees = result.scalars().all()
 
     return employees
-
 
 
 def get_by_department(department: str, db: Session):

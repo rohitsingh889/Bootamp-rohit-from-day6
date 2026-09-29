@@ -28,16 +28,31 @@ def create_employee(db: Session, employee_data: dict):
             detail="Database constraint violated"
         )
 
-
-def get_employees(db:Session):
-    employees=employee_repository.get_employees(db)
+def get_employees(
+    page: int,
+    limit: int,
+    sort: str | None,
+    order: str,
+    db: Session
+):
+    employees = employee_repository.get_employees(
+        page,
+        limit,
+        sort,
+        order,
+        db
+    )
 
     if not employees:
         raise HTTPException(
             status_code=404,
             detail="No employees found"
         )
-    return {"msg":"data fetched", "data":employees}
+
+    return {
+        "msg": "data fetched",
+        "data": employees
+    }
 
 
 def getone_employee(emp_id:int,db:Session):
@@ -101,10 +116,16 @@ def delete_employee(emp_id: int, db: Session):
 
 
 
-def search_employee(search: str, db: Session):
-
+def search_employee(
+    search: str,
+    page: int,
+    limit: int,
+    db: Session
+):
     employees = employee_repository.search_employee(
         search,
+        page,
+        limit,
         db
     )
 
@@ -118,7 +139,6 @@ def search_employee(search: str, db: Session):
         "msg": "employees found",
         "data": employees
     }
-
 
 def get_by_department(department: str, db: Session):
 
