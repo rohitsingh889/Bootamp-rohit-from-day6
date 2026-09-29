@@ -36,10 +36,10 @@ The bootcamp focuses on building practical software engineering skills through h
 | **Day 9** | SQL | ✅ Completed |
 | **Day 10** | Database Design & Business Rules | ✅ Completed |
 | **Day 11** | REST API Fundamentals | ✅ Completed |
-| **Day 12** | FastAPI | 🔄 In Progress |
-| **Day 13** | FastAPI + PostgreSQL | 🔄 In Progress |
-| **Day 14** | API Quality, Validation & Error Handling | ⏳ Upcoming |
-| **Day 15** | Mini Project & Technical Review | ⏳ Upcoming |
+| **Day 12** | FastAPI | ✅ Completed |
+| **Day 13** | FastAPI + PostgreSQL | ✅ Completed |
+| **Day 14** | API Quality, Validation & Error Handling | ✅ Completed|
+| **Day 15** | Mini Project & Technical Review |✅ Completed|
 
 ---
 
